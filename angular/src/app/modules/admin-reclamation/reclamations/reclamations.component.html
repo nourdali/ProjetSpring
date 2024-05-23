@@ -1,0 +1,64 @@
+
+
+
+<div class="div-main">
+    <div class="title-page">
+        <h2>Liste des réclamations</h2>
+
+    </div>
+
+    <div class="row custom-div-liste-user">
+        <div style="padding: 50px;">
+
+            <p-table [value]="listReclmation" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5, 10, 20]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Matériel</th>
+                        <th>Utilisateur</th>
+                        <th>Titre</th>
+                        <th>Date</th>
+          
+                    </tr>
+                    <tr>
+                        <th>
+                            <p-columnFilter type="text" field="device.deviceName"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="utilisateur.firstName"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="titre"></p-columnFilter>
+                        </th>
+                        <th>
+                            <p-columnFilter type="text" field="dateReclamation"></p-columnFilter>
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-listReclmation>
+                    <tr>
+                        <td>{{listReclmation.device.deviceName}}</td>
+                        <td>{{listReclmation.utilisateur.firstName}} {{listReclmation.utilisateur.lastName}}</td>
+                        <td>{{listReclmation.titre}}</td>
+                        <td>{{listReclmation.dateReclamation | date}}</td>
+                        <td><button (click)="show(listReclmation)" pButton pRipple type="button" label="Details" class="p-button-outlined p-button-rounded p-button-secondary"></button></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <p-dialog  [(visible)]="displayBasic" [style]="{width: '50vw'}">
+                <ng-template pTemplate="header">
+                    {{data?.utilisateur.firstName | uppercase}} {{data?.utilisateur.lastName | uppercase}}
+                </ng-template>
+                <strong>{{data?.titre}}</strong> <br>
+                {{data?.description}}
+                <ng-template pTemplate="footer">
+                    Date : {{data?.dateReclamation | date}}
+                </ng-template>
+            </p-dialog>
+        </div>
+    </div>
+</div>

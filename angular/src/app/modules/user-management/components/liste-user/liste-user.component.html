@@ -1,0 +1,143 @@
+<div class="div-main">
+  <div class="title-page">
+    <h2>Liste utilisateurs</h2>
+
+  </div>
+
+  <div class="row custom-div-liste-user">
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  user-list-container">
+      <div class="menu-table-user">
+
+        <div class="btn-actiontable">
+          <button mat-button class="btn-menu-table" style="background-color: #121c4e; color: white;"
+            (click)="openDialogAddUser()">
+            Ajouter utilisateur
+          </button>
+
+
+
+
+        </div>
+
+        <div class="search-table">
+          <input [(ngModel)]="searchTerm" name="searchTerm" (keyup)="filterItems()"
+            class="form-control form-control-light  rounded-0 border-0 search-input-table" id="input" type="text"
+            placeholder="Search" aria-label="Search" #input>
+        </div>
+      </div>
+      <p-table [value]="userList" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5, 10, 20]">
+        <ng-template pTemplate="header">
+          <tr>
+
+            <th scope="col">Nom et prénom</th>
+            <th scope="col">Role</th>
+            <th scope="col">Email</th>
+            <th scope="col">Manager</th>
+
+            <th scope="col" style="width: 20%;"> <span class="badge badge-soft-success mb-0 p-2"
+                (click)="accessTotal(1)" style="cursor: pointer;"><i class="bi bi-unlock-fill"></i> Accèes</span>
+
+               <span (click)="accessTotal(0)" class="badge badge-soft-danger mb-0 p-2" style=" cursor: pointer; margin-left: 3px;"> <i
+                  class="bi bi-lock-fill"></i> Non</span>
+
+
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p-columnFilter type="text" field="userName"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="role"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="email"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="manager.username"></p-columnFilter>
+            </th>
+
+            <th style="width: 20%;">
+
+              <span class="badge badge-soft-primary mb-0 p-2">{{numberUserWithNoAccess}} n'ont pas d'accèes</span>
+
+
+
+
+
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-userList>
+          <tr>
+
+            <td><img src="../../../../../assets/images/user/user.png" alt="" class="avatar-sm rounded-circle me-2" />
+              <a href="#" class="text-body">{{userList.firstName}} {{userList.lastName}}</a> <br>
+              <span class="badge badge-soft-primary mb-0 p-2">Identifiant : {{userList.userName}}</span>
+            </td>
+
+            <td>
+              <span class="badge badge-soft-success mb-0">{{userList.role}} </span>
+            </td>
+
+            <td>
+              <span>{{userList.email}} </span>
+            </td>
+            <td *ngIf="userList.role !== 'ADMIN'">
+
+              <span class="badge badge-soft-primary mb-0">Manager : {{userList.manager?.firstName ?? "__"}}
+                {{userList.manager?.lastName ?? "__"}}</span>
+            </td>
+            <td *ngIf="userList.role == 'ADMIN'">
+              <span class="badge badge-soft-primary mb-0">Adminstareur</span>
+            </td>
+
+            <td>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item" style="cursor: pointer;">
+                  <a href="javascript:void(0);" (click)="openDialogEditUser(userList)" title="Edit"
+                    class="px-2 text-primary"><i class="bi bi-pencil-square"></i></a>
+                </li>
+                <li class="list-inline-item" *ngIf="userList.role !== 'ADMIN' && userList.manager == null"
+                  style="cursor: pointer;">
+                  <a href="javascript:void(0);" (click)="openDialogAffectManager(userList)" title="Edit"
+                    class="px-2 text-success"><i class="bi bi-person-add"></i></a>
+                </li>
+                <li class="list-inline-item" style="cursor: pointer;">
+                  <a href="javascript:void(0);" title="Delete" (click)="onDeleteUser(userList.id)"
+                    class="px-2 text-danger"><i class="bi bi-trash-fill"></i></a>
+                </li>
+                <li class="list-inline-item" *ngIf="!userList.access && userList.role !== 'ADMIN'"
+                  style="cursor: pointer;">
+            
+                      <span class="badge badge-soft-success mb-0 p-2"
+                      (click)="changeStatus(userList.id , 1)" style="cursor: pointer;"><i class="bi bi-unlock-fill"></i> Accèes</span>
+
+                </li>
+                <li class="list-inline-item" *ngIf="userList.access && userList.role !== 'ADMIN'"
+                  style="cursor: pointer;">
+                  <span (click)="changeStatus(userList.id , 0)"  class="badge badge-soft-danger mb-0 p-2" style=" cursor: pointer; margin-left: 3px;"> <i
+                    class="bi bi-lock-fill"></i> Non</span>
+            
+
+                </li>
+
+              </ul>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+
+
+    </div>
+
+
+
+  </div>
+
+</div>

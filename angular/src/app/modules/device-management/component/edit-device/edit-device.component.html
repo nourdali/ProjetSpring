@@ -1,0 +1,65 @@
+<div class="w-100 title-dialog">
+    <H2>Modifié un matériel</H2>
+    <hr>
+</div>
+
+
+<div mat-dialog-content class="dialog-user">
+    <form [formGroup]="addressForm" novalidate >
+        <div class="row mb-1">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mb-xs-3 mb-sm-3">
+
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Référence</mat-label>
+                    <input formControlName="serialNumber" matInput placeholder="Référence">
+                    <mat-error *ngIf="addressForm.controls['serialNumber'].hasError('required')">
+                        La référence est <strong>obligatoire</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Label</mat-label>
+                    <input formControlName="deviceName" matInput placeholder="Label">
+                    <mat-error *ngIf="addressForm.controls['deviceName'].hasError('required')">
+                        La label est <strong>obligatoire</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Catégorie</mat-label>
+                    <mat-select formControlName="category" placeholder="Catégorie">
+                        <mat-option *ngFor="let item of typeDevices" [value]="item">{{item}}</mat-option>
+                        <!-- Ajoutez autant de mat-options que nécessaire -->
+                    </mat-select>
+                    <mat-error *ngIf="addressForm.controls['category'].hasError('required')">
+                        La label est <strong>obligatoire</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Catégorie</mat-label>
+                    <mat-select formControlName="statut" placeholder="Statut">
+                        <mat-option *ngFor="let item of statusDevice" [value]="item">{{item | uppercase}}</mat-option>
+                        <!-- Ajoutez autant de mat-options que nécessaire -->
+                    </mat-select>
+                    <mat-error *ngIf="addressForm.controls['statut'].hasError('required')">
+                        Le statut est <strong>obligatoire</strong>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="row dialog-action">
+        <button mat-raised-button (click)="onSubmit()" class="btn-save btn-dialog-action" [disabled]="addressForm.invalid" color="primary">Enregistrer</button>
+        <button mat-raised-button class="btn-cancel btn-dialog-action" color="warn" mat-dialog-close>Annuler</button>
+    </div>
+</div>

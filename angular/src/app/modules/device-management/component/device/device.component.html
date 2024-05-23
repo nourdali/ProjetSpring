@@ -1,0 +1,173 @@
+<div class="div-main">
+    <div class="title-page">
+        <h2>Liste matériels</h2>
+
+    </div>
+    <div style="padding: 15px;">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <h5 class="card-title">Liste des matériels <span
+                            class="text-muted fw-normal ms-2">({{devicesList?.length}})</span>
+                    </h5>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                    <div>
+                        <mat-form-field style=" width: 400px;">
+                            <mat-label>Recherche</mat-label>
+                            <input type="text" matInput [(ngModel)]="searchTerm" name="searchTerm"
+                                (keyup)="filterItems()" placeholder="Ex. 123456" style="height: 100% ;">
+
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button (click)="openDialogAddDevice()" class="btn btn-primary"
+                            style="background-color: #121c4e; border-color: #121c4e;"><i class="bx bx-plus me-1"></i>
+                            Ajouter un matériel</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="">
+
+                    <p-table [value]="devicesList" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                        [tableStyle]="{ 'min-width': '50rem' }"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [rowsPerPageOptions]="[5, 10, 20]">
+                        <ng-template pTemplate="header">
+                            <tr>
+
+                                <th scope="col">Label</th>
+                                <th scope="col">Reférence</th>
+                                <th scope="col">Type</th>
+
+                                <th scope="col">Status</th>
+                                <th scope="col">Reservé par</th>
+                                <th scope="col" style="width: 200px;">Action</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <p-columnFilter type="text" field="deviceName"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="serialNumber"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="category"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="statut"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <p-columnFilter type="text" field="utilisateur.firstName"></p-columnFilter>
+                                </th>
+                                <th>
+                                    <button pButton pRipple (click)="exportexcel()" type="button" icon="pi pi-file-excel" class="p-button-rounded p-button-success"></button>
+                                    <button pButton pRipple (click)="downloadPdf()" style="margin-left: 2px;" type="button" icon="pi pi-file-pdf" class="p-button-rounded p-button-secondary"></button>
+
+                            
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-devicesList>
+
+                            <tr>
+
+                                <td><img src="../../../../../assets/images/device/{{devicesList.category.toLowerCase()}}.jpg"
+                                        alt="" class="avatar-sm rounded-circle me-2" /><a href="#"
+                                        class="text-body">{{devicesList.deviceName}}</a></td>
+                                <td>{{devicesList.serialNumber}}</td>
+                                <td>
+                                    <span class="badge badge-soft-primary mb-0">{{devicesList.category}}</span>
+                                </td>
+
+                                <td>
+                                    <span class="badge mb-0" [ngClass]="
+                                      devicesList.statut === 'Disponible' ? 'badge-soft-success' : devicesList.statut === 'OCCUPER' ? 'badge-soft-warn' : 'badge-soft-danger' 
+                                      ">
+                                        {{devicesList.statut}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-soft-primary mb-0">{{devicesList.utilisateur?.firstName ?? "Non"}} {{devicesList.utilisateur?.firstName ?? "reservé" }}</span>
+                                </td>
+                                <td>
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-devicesList" style="cursor: pointer;">
+                                            <a (click)="openDialogEditDevice(devicesList)" class="px-2 text-primary"><i
+                                                    class="bx bx-pencil font-size-18"></i></a>
+                                        </li>
+                                        <li class="list-inline-devicesList" style="cursor: pointer;">
+                                            <a class="px-2 text-danger" (click)="deleteDevice(devicesList.id)"><i
+                                                    class="bx bx-trash-alt font-size-18"></i></a>
+                                        </li>
+
+                                    </ul>
+                                </td>
+                               
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row g-0 align-items-center pb-4">
+            <div class="col-sm-6">
+                <div>
+                    <p class="mb-sm-0">Showing 1 to 10 of 57 entries</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="float-sm-end">
+                    <ul class="pagination mb-sm-0">
+                        <li class="page-item disabled">
+                            <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                        </li>
+                        <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item">
+                            <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<!-- <div class="div-main">
+    <div class="title-page">
+        <h2>Liste Device</h2>
+
+    </div>
+
+    <div class="row custom-div-liste-user">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12  user-list-container">
+            <div class="menu-table-user">
+
+
+               
+
+            </div>
+
+
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 mt-2">
+
+        </div>
+
+    </div>
+</div> -->

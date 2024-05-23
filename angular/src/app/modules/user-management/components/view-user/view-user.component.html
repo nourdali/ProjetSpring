@@ -1,0 +1,94 @@
+<div class="div-main">
+    <div class="title-page">
+        <H2>View User</H2>   
+    </div>
+
+
+    <div class="page-user">
+        <div class="row py-3">
+            
+            <div class="col-md-5 col-lg-3 mb-3">
+                <div class="card-user card card-view-user">
+                    <div class="container-card">
+                        <div class="image">
+                            <img alt="..." src="https://demos.creative-tim.com/now-ui-dashboard-pro-react/static/media/bg5.d60a95eb.jpg"> 
+                        </div>
+                        <div class="card-body">
+                            <div class="author">
+                                <img alt="..." class="avatar border-gray" src="../../../../../assets/images/pict-user.jpg">
+                                <h5 class="title">{{userConnect?.firstName}} {{userConnect?.lastName}}</h5>
+    
+                                <p class="description user-id">{{userConnect?.userName}}</p>
+                            </div>
+                            <p class="description text-center">{{userConnect?.role}}</p>
+                            <hr>
+                        </div>   
+                        <!-- <div class="button-container">
+                            <button mat-raised-button color="primary" class="btn-icon">
+                                
+                                Acviter
+                            </button>
+                            <button mat-raised-button color="primary" class="btn-icon" [routerLink]="'../liste-notification'">
+                                Déactiver
+                            </button>
+    
+                        </div> -->
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="col-md-7 col-lg-9 mb-3">
+                <div class="card-user card card-info-user">
+                    <div class="row">
+                        <div class="col-12 div-btn" *ngIf="userConnect?.access">
+                            <a (click)="openDialogEditUser(userConnect)">Modifier profile</a>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Nom<a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">{{userConnect?.firstName}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Prénom<a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">{{userConnect?.lastName}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Email <a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">{{userConnect?.email}}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-2">
+                            <p class="title-info">Téléphone<a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">(00216) {{userConnect?.phoneNumber}}</p>
+                        </div>
+                        <!-- <div class="col-sm-12 col-md-8 mb-2">
+                            <p class="title-info">Addresse <a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">03 rue de l'indépendance Bardo 2000</p>
+                        </div>
+                        <div class="col-sm-12 col-md-12 mb-2">
+                            <p class="title-info">Autre<a>
+                                    <mat-icon class="icon-display">mode_edit</mat-icon>
+                                </a></p>
+                            <p class="description-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                                Asperiores eos repudiandae voluptatem maxime, corrupti laborum maiores explicabo fugit,
+                                exercitationem ducimus ex. 
+                            </p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+      
+    </div>
+</div>

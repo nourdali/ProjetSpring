@@ -1,0 +1,113 @@
+<div class="div-main">
+    <div class="title-page">
+        <h2>Affectation formulaire</h2>
+    </div>
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-8 form-card">
+            <form>
+                <mat-card class="shipping-card">
+                    <mat-card-header>
+                        <mat-card-title>Affecter un matériel</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+
+
+
+                        <div class="row">
+                            <div class="col">
+
+                                <mat-form-field style="border: 1px solid rgba(128, 128, 128, 0.288); padding: 10px; border-radius: 5px;">
+
+                                    <input type="text" placeholder="Utilisateur" [(ngModel)]="userInput"
+                                        name="userInput" matInput [formControl]="myControlUser"
+                                        [matAutocomplete]="autoUser">
+                                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                    <mat-autocomplete #autoUser="matAutocomplete">
+                                        <mat-option *ngFor="let object of filteredObjectsUser | async"
+                                            [value]="object.userName">
+                                            {{ object.firstName }} {{ object.lastName }} {{ object.userName }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field style="border: 1px solid rgba(128, 128, 128, 0.288); padding: 10px; border-radius: 5px;">
+
+                                    <input type="text" placeholder="Matériel" [(ngModel)]="device" name="device"
+                                        matInput [formControl]="myControl" [matAutocomplete]="auto">
+                                    <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+                                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addDvice($event)">
+                                        <mat-option *ngFor="let object of filteredObjects | async"
+                                            [value]="object.serialNumber">
+                                            {{ object.deviceName }} {{ object.serialNumber }}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+
+                         
+                        </div>
+
+
+
+
+                    </mat-card-content>
+                    <mat-card-actions align="end">
+                        <button mat-raised-button (click)="onSubmit()" color="primary" type="submit"
+                            class="btn-submit-form">Submit</button>
+                    </mat-card-actions>
+                </mat-card>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-8 form-card">
+            <form>
+                <mat-card class="shipping-card">
+                    <mat-card-header>
+                        <mat-card-title>Liste d'affectaions </mat-card-title>
+                    
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <table class="table">
+                            <thead class="table-dark">
+                               <tr>
+                                <th>Num</th>
+                                <th>Utilisateur</th>
+                                <th>Device</th>
+                                <th>Date d'affectation</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listAffectations">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.utilisateur.firstName}} {{item.utilisateur.lastName}}</td>
+                                    <td>{{item.device.deviceName}} <span class="badge badge-soft-primary mb-0">{{item.device.serialNumber}}</span> </td>
+                                    <td>{{item.dateAffect | date}}</td>
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+                    </mat-card-content>
+                    <!-- <mat-card-actions align="end">
+                        <button mat-raised-button (click)="onSubmit()" color="primary" type="submit"
+                            class="btn-submit-form">Submit</button>
+                    </mat-card-actions> -->
+                </mat-card>
+            </form>
+
+        </div>
+    </div>
+
+</div>

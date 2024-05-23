@@ -1,0 +1,82 @@
+<div class="div-main">
+    <div class="title-page">
+        <h2>Liste des types matériels</h2>
+
+        <div class="event-schedule-area-two bg-color pad100">
+            <div style="padding: 15px;">
+              
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                    
+                        <div class="tab-content" >
+                            <div class="tab-pane fade active show" id="home" role="tabpanel">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th  >Total</th>
+                                                
+                                                <th >Image</th>
+                                                <th >Label</th>
+                                                <th   >Disponible(s)</th>
+                                                <th   >Occupée(s)</th>
+                                                <th   >En panne(s)</th>
+                                         
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="inner-box" *ngFor="let item of deviceTypeList">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        <span>{{item.count}}</span>
+                                                    </div>
+                                                </th>
+                                            
+                                                <td>
+                                                    <div class="event-img">
+                                                        <img src="../../../../../assets/images/device/{{item.deviceType.toLowerCase()}}.jpg"
+                                                            alt="" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        <h3><a >{{item.deviceType}}</a></h3>
+                                                       
+                                                    </div>
+                                                </td>
+                                                <th scope="row">
+                                                    <div class="event-date"  >
+                                                        <span>{{item.dispoible}}</span>
+                                                    </div>
+                                                </th>
+                                                <th scope="row"  >
+                                                    <div class="event-date" >
+                                                        <span>{{item.occupee}}</span>
+                                                    </div>
+                                                </th>
+                                                <th scope="row">
+                                                    <div class="event-date"  >
+                                                        <span>{{item.enpannes}}</span>
+                                                    </div>
+                                                </th>
+                                               
+                                            </tr>
+                                          
+                                       
+                                         
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                         
+                        </div>
+                    
+                    </div>
+                    <!-- /col end-->
+                </div>
+                <!-- /row end-->
+            </div>
+        </div>
+    </div>
+</div>

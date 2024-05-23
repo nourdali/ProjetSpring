@@ -1,0 +1,93 @@
+<div class="div-main">
+    <div class="title-page">
+        <h2>Liste d'affectation</h2>
+    </div>
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-12 form-card">
+            <form>
+                <mat-card class="shipping-card">
+                    <mat-card-header>
+                        <mat-card-title>Mes matériels</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let item of currentUser?.affectations">
+                                <div class="card" style="width: 18rem;">
+                                    <img style="width: 10rem; height: 10rem; margin-left: auto; margin-right: auto;" src="../../../../assets/images/device/{{item.device?.category.toLowerCase()}}.jpg" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{item.dateAffect | date}}</h3>
+                                        <p class="card-text">
+                                            {{item.device?.serialNumber }}
+                                            {{item.device?.deviceName }}
+                                            <span class="badge badge-soft-primary mb-0">{{item.device?.category }}</span>
+                                        </p>
+                                        <a class="btn btn-primary" style="background-color:#121c4e; border-color: #121c4e;"  (click)="openDialogAddUser(item.device , currentUser)">Réclamer</a>
+                                        <a class="btn btn-success" *ngIf="currentUser?.access" style="margin-left: 10px;" (click)="openDialogEditdevice(item.device)">Modifié</a>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </mat-card-content>
+
+                </mat-card>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center py-4">
+        <div class="col-12 form-card">
+            <form>
+                <mat-card class="shipping-card">
+                    <mat-card-header>
+                        <mat-card-title>Mes réclamations </mat-card-title>
+                    
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <table class="table">
+                            <thead class="table-dark">
+                               <tr>
+                                <th>Date de reclamation</th>
+                                <th>Device</th>
+                                <th>Titre</th>
+                                <th>Description</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of reclamationList">
+                                    <td>{{item.dateReclamation | date}}</td>
+                                    <td>{{item.device.deviceName}} <span class="badge badge-soft-primary mb-0">{{item.device.serialNumber}}</span></td>
+                                    <td>{{item.titre}}</td>
+                                    <td>{{item.description}}</td>
+                                   
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+                    </mat-card-content>
+        
+                </mat-card>
+            </form>
+
+        </div>
+    </div>
+
+
+
+</div>
